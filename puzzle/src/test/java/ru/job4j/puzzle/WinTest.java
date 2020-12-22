@@ -55,4 +55,28 @@ public class WinTest {
         };
         assertThat(Win.check(board), is(false));
     }
+
+    @Test
+    public void whenHorizontalEndWin() {
+        int[][] board = {
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {0, 0, 0, 0, 0},
+                {1, 1, 1, 1, 1},
+        };
+        assertThat(Win.check(board), is(true));
+    }
+
+    @Test
+    public void whenVerticalEndWin() {
+        int[][] board = {
+                {0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 1},
+                {0, 0, 0, 0, 1},
+        };
+        assertThat(Win.check(board), is(true));
+    }
 }

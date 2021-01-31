@@ -12,7 +12,7 @@ public final class Logic {
         figures[index++] = figure;
     }
 
-    public void move(Cell source, Cell dest) throws FigureNotFoundException {
+    public void move(Cell source, Cell dest) throws FigureNotFoundException, OccupiedCellException {
         int index = findBy(source);
         if (index != -1) {
             Cell[] steps = figures[index].way(dest);
@@ -20,6 +20,9 @@ public final class Logic {
                 figures[index] = figures[index].copy(dest);
             } else {
                 throw new FigureNotFoundException();
+            }
+            if (figures[index].equals(steps[index])) {
+                throw new OccupiedCellException();
             }
         }
     }

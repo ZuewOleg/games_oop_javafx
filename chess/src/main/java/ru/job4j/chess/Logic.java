@@ -12,32 +12,25 @@ public final class Logic {
         figures[index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) {
-        boolean rsl = false;
-            try {
-                int index = findBy(source);
-                if (index != -1) {
-                    Cell[] steps = figures[index].way(dest);
-                    for (int i = 0; i < steps.length; i++) {
-                        if(findBy(steps[i]) == -1 && steps[steps.length - 1].equals(dest)) {
-                            rsl = true;
-                            figures[index] = figures[index].copy(dest);
-                        } else break;
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+    public void move(Cell source, Cell dest) throws FigureNotFoundException {
+        int index = findBy(source);
+        if (index != -1) {
+            Cell[] steps = figures[index].way(dest);
+            if (steps[steps.length - 1].equals(dest)) {
+                figures[index] = figures[index].copy(dest);
+            } else {
+                throw new FigureNotFoundException();
             }
-            return rsl;
+        }
     }
 
     private boolean free(Cell[] steps) throws OccupiedCellException {
             for (int i = 0; i < figures.length; i++) {
-                if ((figures[i].equals(steps[i]))) {
-                    return true;
+                if (figures[i].equals(steps[i])) {
+                    throw new OccupiedCellException();
                 }
             }
-            throw new OccupiedCellException();
+        return true;
     }
 
     public void clean() {

@@ -16,13 +16,10 @@ public final class Logic {
         int index = findBy(source);
         if (index != -1) {
             Cell[] steps = figures[index].way(dest);
-            if (steps[steps.length - 1].equals(dest)) {
+            if (free(steps)) {
                 figures[index] = figures[index].copy(dest);
             } else {
                 throw new FigureNotFoundException();
-            }
-            if (figures[index].equals(steps[index])) {
-                throw new OccupiedCellException();
             }
         }
     }
